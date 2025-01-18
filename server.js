@@ -1,6 +1,33 @@
 // Boilerplate Code for Virtual Assistant API
-const express = require('express');
+const express = require("express");
 const app = express();
+
+app.get(`/assistant/greet`, (req, res) => {
+  const name = req.query.name;
+  const day = new Date().getDay();
+  let msg;
+
+  switch (day) {
+    case 1:
+      msg = "Happy Monday! Start your week with energy!";
+      break;
+    case 5:
+      msg = "It's Friday! The weekend is near!";
+      break;
+    default:
+      msg = "Have a wonderful day!";
+      break;
+  }
+  res.send({
+    welcomeMessage: `Hello, ${name}! Welcome to our assistant app!`,
+    dayMessage: msg,
+  });
+});
+
+const PORT = 3000;
+app.listen(PORT, () => {
+  console.log(`Virtual Assistant API is running on http://localhost:${PORT}`);
+});
 
 /*
 Task:
@@ -32,8 +59,3 @@ Example Responses:
 
 Add the required logic below to complete the API.
 */
-
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`Virtual Assistant API is running on http://localhost:${PORT}`);
-});
